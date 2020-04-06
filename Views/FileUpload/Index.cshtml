@@ -1,0 +1,32 @@
+﻿@model FileUpload.Models.File
+
+@{
+    ViewData["Title"] = "Index";
+}
+@TempData["error"]
+<h1>Index</h1>
+
+<h4>File</h4>
+<hr />
+<div class="text-center">
+    <form method="post" enctype="multipart/form-data" asp-action="upload">
+        <dl>
+            <dt>
+                <label asp-for="@Model.formFile"></label>
+            </dt>
+            <dd>
+                <input asp-for="@Model.formFile" />
+            </dd>
+        </dl>
+            <input type="submit" value="upload" class="btn btn-primary"/>
+      
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
