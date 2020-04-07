@@ -1,0 +1,48 @@
+﻿@model FileUpload.ViewModels.ViewFile
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>File</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Yoganame" class="control-label"></label>
+                <input asp-for="Yoganame" class="form-control" />
+                <span asp-validation-for="Yoganame" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="formFile" class="control-label custom-file-label">choose file...</label>
+                <input asp-for="formFile" class="form-control custom-file-input" />
+               
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.custom-file-input').on("change", function () {
+            var filename = $(this).val().split("\\").pop();
+            $(this).siblings('.custom-file-label').addClass("selected").html(filename);
+        });
+    });
+</script>
+
+}

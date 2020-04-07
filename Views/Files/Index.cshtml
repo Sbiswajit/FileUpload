@@ -1,0 +1,41 @@
+﻿@model IEnumerable<FileUpload.Models.File>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Yoganame)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.photo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yoganame)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.photo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Yid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Yid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Yid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
