@@ -63,18 +63,27 @@ namespace FileUpload.Controllers
             if (ModelState.IsValid)
             {
                 string uniqueFilename = null;
-                if(model.formFile!=null)
+                if (model.formFile != null)
                 {
-                    string upload = System.IO.Path.Combine(_env.WebRootPath, "images");
-                    uniqueFilename = Guid.NewGuid().ToString() + "_" + model.formFile.FileName;
-                    string filepath = System.IO.Path.Combine(upload, uniqueFilename);
-                    model.formFile.CopyTo(new System.IO.FileStream(filepath, System.IO.FileMode.Create));
-                    //string filepath = $"{_env.WebRootPath}/images/{model.formFile.FileName}";
-                    //var stream = System.IO.File.Create(filepath);
-                    //model.formFile.CopyTo(stream);
+                    string ext = System.IO.Path.GetExtension(model.formFile.FileName);
+                    if (ext == ".pdf")
+                    {
+                        string upload = System.IO.Path.Combine(_env.WebRootPath, "images");
+                        uniqueFilename = Guid.NewGuid().ToString() + "_" + model.formFile.FileName;
+                        string filepath = System.IO.Path.Combine(upload, uniqueFilename);
+                        model.formFile.CopyTo(new System.IO.FileStream(filepath, System.IO.FileMode.Create));
+                        //string filepath = $"{_env.WebRootPath}/images/{model.formFile.FileName}";
+                        //var stream = System.IO.File.Create(filepath);
+                        //model.formFile.CopyTo(stream);
+                    }
+                    else
+                    {
+                        TempData["Error"] = "Only Pdf files are allowed";
+                        return RedirectToAction("Create", "Files");
+                    }
                 }
-                try
-                {
+               
+                
                     File newfile = new File
                     {
                         Yid = model.Yid,
@@ -86,11 +95,8 @@ namespace FileUpload.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-                catch(Exception e)
-                {
-                    return BadRequest();
-                }
-            }
+               
+            
             return View();
         }
 

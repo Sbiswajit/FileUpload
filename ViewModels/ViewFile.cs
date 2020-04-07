@@ -15,7 +15,7 @@ namespace FileUpload.ViewModels
         public int Yid { get; set; }
         [Required]
         public string Yoganame { get; set; }
-      
+      [Required]
         public IFormFile formFile { get; set; }
     }
 }
